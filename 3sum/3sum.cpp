@@ -4,8 +4,15 @@ public:
         vector<vector<int>> ans;
         vector<int> comp;
         int n = nums.size();
+        if(n<3){
+            return ans;
+        }
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
+            if(nums[i]+nums[n-1]+nums[n-2]<0){
+                continue;
+            }
+            if(nums[i]>=1)break;
            if(i>0 && nums[i]==nums[i-1])
                continue;
             int rem = -1*nums[i];
