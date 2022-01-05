@@ -1,22 +1,17 @@
 class Solution {
 public:
     int findLengthOfLCIS(vector<int>& nums) {
-        if(nums.size()<2) 
-            return nums.size();
-        int ans=0;
-        int count=1;
-        for(int i=1;i<nums.size();i++) {
-            if(nums[i]>nums[i-1]) 
-            {
-                count++;
+        int best_length = 0;
+        int length = 0;
+        const int n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            if (i == 0 || nums[i] > nums[i - 1]) {
+                length++;
+            } else {
+                length = 1;
             }
-            else 
-            {
-                ans = max(ans,count);
-                count=1;
-            }
-            
+            best_length = std::max(best_length, length);
         }
-        return max(ans,count);
+        return best_length;
     }
 };
