@@ -1,23 +1,19 @@
 class Solution {
 public:
     int findTheWinner(int n, int k) {
-      //int x=n-1;
-     list<int>l;
+        list<int>l;
         for(int i=0;i<n;i++){
             l.push_back(i);
         }
         auto it=l.begin();
         while(l.size()>1){
-            for(int count=1;count<k;count++){
+            for(int i=1;i<k;i++){
                 it++;
-                if(it==l.end()){
-                    it=l.begin();
-                }}
-            it=l.erase(it);
-                if(it==l.end()){
-                    it=l.begin();
-                }
+                if(it==l.end())it=l.begin();
             }
-        return 1+*l.begin();
+            it=l.erase(it);
+            if(it==l.end())it=l.begin();
+        }
+    return 1+*l.begin();
     }
 };
