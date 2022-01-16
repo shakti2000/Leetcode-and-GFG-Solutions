@@ -28,7 +28,8 @@ public:
     
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>>ans;
-        solve(ans, root, targetSum, vector<int>{});
+        vector<int>x;
+        solve(ans, root, targetSum, x);
         return ans;
     }
 };
