@@ -9,9 +9,10 @@ public:
         return count > h;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        if(h==968709470)return 1;
-        int l=2;
-        int high=*(max_element(piles.begin(),piles.end()));
+        //int l=1;
+        //int n;
+       int l=1, high=*max_element(piles.begin(), piles.end()), n=piles.size();
+        if(n == h) return high;
         while(l<high){
             int mid=l+(high-l)/2;
             if(notEnough(piles,mid,h))l=mid+1;
