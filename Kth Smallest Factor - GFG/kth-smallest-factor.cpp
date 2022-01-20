@@ -18,8 +18,6 @@ class Solution {
            }
            if(c==K){
                return i;
-           } else if(c>K) {
-               return -1;
            }
        }
        
