@@ -4,9 +4,7 @@ public:
         long long ans=0;
         unordered_map<double,int>mp;
         for(int i=0;i<nums.size();i++){
-            double a=nums[i][0]*1.0;
-            double b=nums[i][1]*1.0;
-            double temp=a/b;
+            double temp=(double)nums[i][0]/(double)nums[i][1];
             //cout<<temp;
             if(mp[temp]!=0)ans+=mp[temp];
             mp[temp]++;
