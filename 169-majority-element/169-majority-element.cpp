@@ -1,13 +1,19 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        map<int,int>l;
+        int can=nums[0];
+        int count=1;
         for(int i=0;i<nums.size();i++){
-            l[nums[i]]++;
+            if(nums[i]==can){
+                count++;
+            }else{
+                count--;
+            }
+            if(count==0){
+                can=nums[i];
+                count=1;
+            }
         }
-        for(auto it:l){
-            if(it.second>(nums.size()/2))return it.first;
-        }
-    return -1;
+    return can;
     }
 };
