@@ -1,6 +1,12 @@
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
 class Solution {
 public:
+    
     int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+        fastIO();
         int ar1=abs((ax1-ax2)*(ay1-ay2));
         int ar2=abs((bx1-bx2)*(by1-by2));
         int ca=0;
