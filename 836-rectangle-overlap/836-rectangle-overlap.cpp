@@ -1,6 +1,12 @@
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
 class Solution {
 public:
+    
     bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {
+        fastIO();
         long long ax1,ay1,ax2,ay2,bx1,by1,bx2,by2;
         ax1=rec1[0];
         ay1=rec1[1];
