@@ -13,12 +13,16 @@ class WordDictionary
           }
           return true;
      }
-
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
 public:
      WordDictionary() {}
 
      void addWord(string word)
      {
+         fastIO();
           words[word.size()].push_back(word);
      }
 
