@@ -6,29 +6,38 @@ using namespace std;
 class Solution
 {
 	public:
-	void topoDFS(int node,vector<int> adj[],bool visited[],stack<int> &st){
-	    if(visited[node]== true){
-	        return;
-	    }
-	    visited[node]=true;
-	    for(auto nbr: adj[node]){
-	        topoDFS(nbr,adj,visited,st);
-	    }
-	    st.push(node);
-	}
-	
-	vector<int> topoSort(int N, vector<int> adj[]) 
+// 	void indegreeset(vector<int>adj[i],vector<int>&indegree,vector<int>&cv,int i){
+// 	   if(cv[it]==true)return;
+// 	    visted[i]=true;
+// 	    cv[i]=true;
+// 	    for(auto it:adj[i]){
+// 	        indegree[it]++;
+	        
+// 	    }
+// 	    cv[i]==false;
+// 	}
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int v, vector<int> adj[]) 
 	{
-	    bool visited[N];
-	    memset(visited,false,sizeof visited);
-	    stack<int> st;
-	    for(int i=0;i<N;i++){
-	        topoDFS(i,adj,visited,st);
+	    vector<int>ans;
+	    vector<int>indegree(v);
+	    for(int i=0;i<v;i++){
+	        for(auto it:adj[i]){
+	            indegree[it]++;
+	        }
 	    }
-	    vector<int> ans;
-	    while(!st.empty()){
-	        ans.push_back(st.top());
-	        st.pop();
+	    queue<int>q;
+	    for(auto it=0;it<v;it++){
+	        if(indegree[it]==0)q.push(it);
+	    }
+	    while(q.size()!=0){
+	        int u=q.front();
+	        ans.push_back(u);
+	        q.pop();
+	        for(auto it:adj[u]){
+	            indegree[it]--;
+	            if(indegree[it]==0)q.push(it);
+	        }
 	    }
 	    return ans;
 	}
