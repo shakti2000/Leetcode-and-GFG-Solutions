@@ -5,12 +5,11 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  bool dfs(int i,vector<int>adj[],vector<bool>&visited,int parent){
+  bool dfs(vector<int> adj[],vector<bool>&visited,int i,int parent){
       visited[i]=true;
       for(auto it:adj[i]){
           if(visited[it]==false){
-             if( dfs(it,adj,visited,i)==true)
-             return true;
+          if(dfs(adj,visited,it,i)==true)return true;
           }else if(it!=parent)return true;
       }
       return false;
@@ -20,7 +19,7 @@ class Solution {
         vector<bool>visited(v+1,false);
         for(int i=0;i<v;i++){
             if(visited[i]==false){
-                if(dfs(i,adj,visited,-1)==true)return true;
+                if(dfs(adj,visited,i,-1)==true)return true;
             }
         }
     
