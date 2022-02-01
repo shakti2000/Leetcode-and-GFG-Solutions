@@ -6,41 +6,31 @@ using namespace std;
 class Solution
 {
 	public:
-// 	void indegreeset(vector<int>adj[i],vector<int>&indegree,vector<int>&cv,int i){
-// 	   if(cv[it]==true)return;
-// 	    visted[i]=true;
-// 	    cv[i]=true;
-// 	    for(auto it:adj[i]){
-// 	        indegree[it]++;
-	        
-// 	    }
-// 	    cv[i]==false;
-// 	}
+	void dfs(vector<bool>&visited,vector<int> adj[],stack<int> &s,int i){
+	    visited[i]=true;
+	    for(auto it:adj[i]){
+	        if(visited[it]==false){
+	            dfs(visited,adj,s,it);
+	        }
+	    }
+	    s.push(i);
+	}
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int v, vector<int> adj[]) 
 	{
-	    vector<int>ans;
-	    vector<int>indegree(v);
+	    vector<bool>visited(v,false);
+	    stack<int>s;
 	    for(int i=0;i<v;i++){
-	        for(auto it:adj[i]){
-	            indegree[it]++;
+	        if(visited[i]==false){
+	            dfs(visited,adj,s,i);
 	        }
 	    }
-	    queue<int>q;
-	    for(auto it=0;it<v;it++){
-	        if(indegree[it]==0)q.push(it);
-	    }
-	    while(q.size()!=0){
-	        int u=q.front();
-	        ans.push_back(u);
-	        q.pop();
-	        for(auto it:adj[u]){
-	            indegree[it]--;
-	            if(indegree[it]==0)q.push(it);
+	    vector<int>ans;
+	        while(!s.empty()){
+	            ans.push_back(s.top());
+	            s.pop();
 	        }
-	    }
-	    return ans;
-	}
+return ans;	}
 };
 
 // { Driver Code Starts.
