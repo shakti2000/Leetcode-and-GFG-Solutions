@@ -12,23 +12,21 @@ class Solution{
     public:
     string ExcelColumn(int N)
     {
-        string ans = "";
-        while(N != 0)
-        {
-            int h = (N%26);
-            if(h == 0)
-            {
-                h = 26;
+        
+        string ans="";
+        while(N>0){
+            int h=N%26;
+            if(h==0){
+                h=26;
             }
             h--;
-            ans += 'A' + h;
-            N = N/26;
-            if(N == 1 && h == 25) break;
-            if(h == 25) N--;
+            ans+='A'+h;
+            if(N==26)break;
+            N=N/26;
+            if(h==25)N--;
         }
-        reverse(ans.begin(), ans.end());
+        reverse(ans.begin(),ans.end());
         return ans;
-        // Your code goes here
     }
 };
 
