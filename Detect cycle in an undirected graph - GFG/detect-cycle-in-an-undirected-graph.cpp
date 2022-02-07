@@ -5,24 +5,23 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  bool dfs(vector<bool>&visited,vector<int>adj[],int i,int parent){
+  bool dfs(vector<bool>&visited,vector<int> adj[],int i,int parent){
       visited[i]=true;
       for(auto it:adj[i]){
-          if (visited[it]==false){
-              if(dfs(visited,adj,it,i)==true)return true;
-          }else if(it!=parent)return true;
+          if(visited[it]==false){
+          if(dfs(visited,adj,it,i)==true)return true;}
+          else if(it!=parent)return true;
       }
-    //  cout<<"fuck you";
       return false;
   }
     // Function to detect cycle in an undirected graph.
     bool isCycle(int v, vector<int> adj[]) {
         vector<bool>visited(v,false);
-        for(int i=0;i<v;i++){
-            if(visited[i]==false){
-                if(dfs(visited,adj,i,-1)==true)return true;
-            }
-        }
+         for(int i=0;i<v;i++){
+             if(visited[i]==false){
+                 if(dfs(visited,adj,i,-1)==true)return true;
+             }
+         }
     return false;}
 };
 
