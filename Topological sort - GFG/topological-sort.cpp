@@ -6,31 +6,28 @@ using namespace std;
 class Solution
 {
 	public:
-	void dfs(vector<bool>&visited,vector<int> adj[],stack<int> &s,int i){
-	    visited[i]=true;
-	    for(auto it:adj[i]){
-	        if(visited[it]==false){
-	            dfs(visited,adj,s,it);
-	        }
-	    }
-	    s.push(i);
-	}
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int v, vector<int> adj[]) 
 	{
-	    vector<bool>visited(v,false);
-	    stack<int>s;
+	    //vector<bool>visited(v,false);
+	    map<int,int>indegree;
+	    for(int i=0;i<v;i++)
+	    for(auto it:adj[i])indegree[it]++;
+	    queue<int>q;
 	    for(int i=0;i<v;i++){
-	        if(visited[i]==false){
-	            dfs(visited,adj,s,i);
-	        }
+	        if(indegree[i]==0)q.push(i);
 	    }
 	    vector<int>ans;
-	        while(!s.empty()){
-	            ans.push_back(s.top());
-	            s.pop();
+	    while(q.size()){
+	        int x=q.front();
+	        ans.push_back(x);
+	        q.pop();
+	        for(auto it:adj[x]){
+	            indegree[it]--;
+	            if(indegree[it]==0)q.push(it);
 	        }
-return ans;	}
+	    }
+	return ans;}
 };
 
 // { Driver Code Starts.
