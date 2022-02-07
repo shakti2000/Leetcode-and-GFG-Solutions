@@ -1,72 +1,58 @@
 class Solution {
 public:
-    int minCostSetTime(int start, int move, int push, int tar) {
-        vector<string> ways;
-        int mins = 0; 
-		
-		//Section 1
-        while(tar >= 100)
-        {
-            mins++;
-            tar -= 60;
-        }
-        string s = "";
-        
-		
-		//Section 2
-        while(tar >= 60)
-        {
-            s = "";
-            if(mins != 0)
-                s += to_string(mins);
-            s += to_string(tar);
-            ways.push_back(s);
-            tar -= 60;
-            mins++;
-        }
-        
-		//Section 3
-        s = "";
-        if(mins >= 100)
-            goto skip;
-        if(mins != 0)
-            s += to_string(mins);
-        if(tar >= 10)
-            s += to_string(tar);
-        else if(tar>0 and tar < 10)
-        {
-            if(mins != 0)
-                s += "0" + to_string(tar);
-            else s += to_string(tar);
-        }
-        else if(tar == 0)
-            s += "00";
-        ways.push_back(s);
-        
-		
-		//Section 4
-        skip:
-        int ans = INT_MAX; 
-        for(auto s : ways)
-        {
-            //cout<<s<<" ";
-            int len = s.size(); 
-            int sub = 0; 
-            char cur = to_string(start)[0];
-            for(int i =0; i<len; i++)
-            {
-                if(cur != s[i])
-                {
-                    sub += move;
-                    cur = s[i];
-                }
-                sub += push;
+    void print(vector<int>a){
+        for(auto it:a)cout<<it;
+        cout<<endl;
+    }
+    int cost(vector<int>x,int startAt, int moveCost, int pushCost) {
+        int ans=0;
+        if(startAt==x[0])ans+=pushCost;
+        else(ans+=moveCost+pushCost);
+        int temp=x[0];
+        for(int i=1;i<x.size();i++){
+            if(x[i]==temp){ans+=pushCost;
+                          continue;}
+            else{
+            ans+=moveCost+pushCost;
+                temp=x[i];
             }
-            //cout<<sub<<endl;
-            ans = min(ans, sub);
         }
-        
-        return ans; 
-        
+        return ans;
+    }
+    vector<int> inttovec(int a){
+        int temp=a;
+        vector<int>ans;
+        while(temp>0){
+            ans.push_back(temp%10);
+            temp/=10;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+    int minCostSetTime(int startAt, int moveCost, int pushCost, int target) {
+        int a=0;
+        int x=target/60;
+        a+=x;
+        x--;
+        int b=x;
+        //if(target%60==0)a--;
+        //cout<<a<<","<<b<<endl;
+         a*=100;
+         b*=100;
+       // if(target%60==0)a+=60;
+        a+=target%60;
+        b+=target%60;
+        b+=60;
+        if(target<60)b=a;
+        if(target%60>39)b=a;
+        if(target>=6000)a=b;
+        vector<int>va=inttovec(a);
+        vector<int>vb=inttovec(b);
+        cout<<a<<","<<b<<endl;
+       // print(va);
+       // print(vb);
+        int ca=cost(va,startAt,moveCost, pushCost);
+        int cb=cost(vb,startAt,moveCost, pushCost);
+        return min(ca,cb);
     }
 };
