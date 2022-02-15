@@ -29,7 +29,7 @@ int main()
 int remAnagram(string str1, string str2)
 {
 //int total=str1.length()+str2.length();
-map<char,int>mp;
+unordered_map<char,int>mp;
 for(auto it:str1){
     mp[it]++;
 }
