@@ -28,18 +28,19 @@ int main()
 // to be removed to make two strings anagram
 int remAnagram(string str1, string str2)
 {
-   unordered_map<int,int>m,m1;
-   for(int i=0;i<str1.length();i++)
-   m[str1[i]-'a']++;
-   
-   for(int i=0;i<str2.length();i++)
-   m1[str2[i]-'a']++;
-   int ans=0;
-   for(int i=0;i<26;i++)
-   ans=ans+abs(m[i]-m1[i]);
-   
-   
-   
-   return ans;
-   
+//int total=str1.length()+str2.length();
+map<char,int>mp;
+for(auto it:str1){
+    mp[it]++;
+}
+int ans=0;
+for(auto it:str2){
+    if(mp[it]!=0)mp[it]--;
+    else ans++;
+}
+
+for(auto it:mp){
+   // cout<<it.first<<","<<it.second<<endl;
+    ans+=it.second;}
+return ans;
 }
