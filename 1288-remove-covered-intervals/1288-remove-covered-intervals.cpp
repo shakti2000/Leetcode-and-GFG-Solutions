@@ -8,7 +8,7 @@ public:
             cout<<endl;
         }
     }
-    static bool shakti(vector<int>a,vector<int>b){
+    static bool shakti(vector<int>&a,vector<int>&b){
         if(a[0]!=b[0])return a[0]<b[0];
         else{
             return a[1]>b[1];
