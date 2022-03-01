@@ -10,32 +10,39 @@ You are required to complete this method */
 class Solution {
     public:
         int isValid(string s) {
-            // code here
-            int i = 0;
-            for(int j = 0; j < 4; j++){
-                int start = i;
-                while(i < s.length() && s[i] != '.'){
-                    if(s[i] > '9' || s[i] < '0'){
-                        return 0;
-                    }
-                    i++;
+            vector<int>temp;
+            string x="";
+            int cd=0;
+            for(int i=0;i<s.length();i++){
+                if(i<s.length()-1&&s[i]=='.'&&s[i+1]=='.')return false;
+                if(s[i]=='.'){
+                    if(x[0]=='0'&&x.length()>1)return false;
+                    
+                    cd++;
+                    if(cd>3)return false;
+                   // cout<<stoi(x)<<endl;
+                   if(x!="")
+                    temp.push_back(stoi(x));
+                    x="";
+                    continue;
+                    
                 }
-                string num = s.substr(start, i - start);
-                if(num.length() == 0 || num.length() > 3 
-                    || (num[0] == '0' && num.length() > 1) 
-                    || stoi(num) > 255){
-                    return 0;
-                }
-                if(j != 3 && i >= s.length()){
-                    return 0;
-                }
-                if(j == 3 && i < s.length()){
-                    return 0;
-                }
-                i++;
-                
+                if(s[i]>'9'||s[i]<'0')return false;
+                x+=s[i];
+                if(x.length()>3)return false;
+                if(stoi(x)>255)return false;
             }
-            return 1;
+            if(x!=""){
+                if(x[0]=='0'&&x.length()>1)return false;
+            temp.push_back(stoi(x));
+             // cout<<stoi(x);
+            }
+            if(temp.size()!=4)return false;
+            for(auto it:temp){
+                if(it<0||it>255)return false;
+            }
+        return true;
+            
         }
 };
 
