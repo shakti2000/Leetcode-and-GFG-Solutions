@@ -16,6 +16,6 @@ public:
             }
             if(nums[i][0]>target){return false;}
         }
-        //cout<<"bahar aya";
+      
    return false; }
 };
