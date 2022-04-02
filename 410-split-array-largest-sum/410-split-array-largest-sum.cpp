@@ -1,43 +1,44 @@
 class Solution {
 public:
-    int splitArray(vector<int>& nums, int m) {
-        
-        int sum = 0;
-        
-        sum = accumulate(nums.begin(),nums.end(),sum);
-        
-        int l = 0,r = sum;
-        
-        
-        auto predicate = [&](int candSum)
-        {
-            int v = 0;
-            
-            int count = 0;
-            for(int i = 0;i<nums.size();i++)
-            {
-                if(nums[i]>candSum) return false;
-                v+=nums[i];
-                if(v>=candSum)
-                {
-                    count++;
-                    if(v == candSum) v = 0;
-                    else v = nums[i];
-                }
+   bool helper(vector<int>&nums,int mid,int m){
+        int cs=0;
+        int subs=1;
+        for(auto it:nums){
+            cs+=it;
+            if(it>=mid){
+                subs++;
+                cs=it;
+                if(subs>=m)return false;
             }
-            if(v!=0) count++;
-            return count<=m;
-        };
-        while(r-l>1)
-        {
-            int mid = l+(r-l)/2;
-            
-            if(predicate(mid)) r = mid;
-            else l = mid+1;
         }
-        
-        if(predicate(l)) return l;
-        return r;
-        
+        return false;
+    }
+    int splitArray(vector<int>& nums, int m) {
+        int start =*max_element(nums.begin(),nums.end());
+        int end =accumulate(nums.begin(),nums.end(),0);
+        int mid,ans;
+        while(start<=end){
+            mid=start+(end-start)/2;
+            if(isPossible(nums,mid,m)){
+                end=mid-1;
+                ans=mid;
+            }else{
+                start=mid+1;
+            }
+        }
+        return ans;
+    }
+    
+    bool isPossible(vector<int>&n,int mid,int m){
+        int sum=0,count=1;
+        for(int i=0;i<n.size();i++){
+            sum+=n[i];
+            if(sum>mid){
+                sum=n[i];
+                count++;
+            }
+            if(count>m)return 0;
+        }
+        return 1;
     }
 };
