@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
+        if(s==t)return true;
         vector<char>s1;
         vector<char>t1;
         for(auto it:s){
