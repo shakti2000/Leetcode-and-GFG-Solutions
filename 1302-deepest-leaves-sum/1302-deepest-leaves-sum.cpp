@@ -11,26 +11,16 @@
  */
 class Solution {
 public:
-    void calch(TreeNode*root,int &mh,int ch){
+    void traverser(TreeNode*root,map<int,int>&mp,int h){
         if(root==NULL)return;
-        if(ch>mh)mh=ch;
-        calch(root->left,mh,ch+1);
-        calch(root->right,mh,ch+1);
-    }
-    void calcs(TreeNode*root,int &ans,int mh,int ch){
-        if(root==NULL )return;
-        if(mh==ch)ans+=root->val;
-        calcs(root->left,ans,mh,ch+1);
-        calcs(root->right,ans,mh,ch+1);
-        return;
+        mp[h]+=root->val;
+        traverser(root->left,mp,h+1);
+        traverser(root->right,mp,h+1);
     }
     int deepestLeavesSum(TreeNode* root) {
-        if(root->left==NULL&&root->right==NULL)return root->val;
-            int mh=0;
-        int ch=0;
-        calch(root,mh,ch+1);
-        int ans=0;
-        calcs(root,ans,mh,ch+1);
-        return ans;
+        map<int,int>mp;
+        traverser(root,mp,0);
+        auto it=mp.rbegin();
+        return it->second;
     }
 };
