@@ -10,11 +10,23 @@
  */
 class Solution {
 public:
+    ListNode* tailf(ListNode* root){
+        ListNode*temp=root;
+        while(temp->next!=NULL)temp=temp->next;
+        return temp;
+    }
+    void reverser(ListNode*root){
+        if(root->next==NULL)return;
+        reverser(root->next);
+        root->next->next=root;
+        root->next=NULL;
+        return;
+    }
     ListNode* reverseList(ListNode* head) {
-        if(head==NULL||head->next==NULL )return head;
-        ListNode*end=(reverseList(head->next));
-        ListNode*temp=head->next;
-        temp->next=head;
-        head->next=NULL;
-   return end; }
+        if(head==NULL||head->next==NULL)return head;
+        ListNode*ans=tailf(head);
+        reverser(head);
+        
+        return ans;
+    }
 };
