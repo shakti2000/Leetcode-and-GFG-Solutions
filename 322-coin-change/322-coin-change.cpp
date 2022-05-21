@@ -1,26 +1,25 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) {
-       int inf=100000001;
-        if(amount==0)
-            return 0;
-       int dp[amount+1];
-        for(int i=0;i<amount+1;i++)
-            dp[i]=inf;
-        for(int i=0;i<amount+1;i++)
-        {
-            for(int j=0;j<coins.size();j++)
-            {
-                if(i==coins[j])
-                    dp[i]=1;
-                else if(i>coins[j])
-                    dp[i]=min(dp[i],dp[i-coins[j]]+1);
-            }
+    void print(vector<int>&nums){
+        for(auto it:nums)cout<<it<<',';
+        cout<<endl;
+    }
+    int helper(vector<int>& nums,int amountl,vector<int>& dp){
+        if(amountl<0)return 100000009;
+        if(amountl==0)return 0;
+        if(dp[amountl]!=-1)return dp[amountl];
+        int ans=100000009;
+        for(int i=0;i<nums.size();i++){
+            ans= min(ans,1+helper(nums,amountl-nums[i],dp));
         }
-        if(dp[amount]!=inf)
-            return dp[amount];
-        else
-            return -1;
-        
+        return dp[amountl]=ans;
+    }
+    int coinChange(vector<int>& nums, int amount) {
+        sort(nums.rbegin(),nums.rend());
+       // print(nums);
+        vector<int>dp(amount+1,-1);
+        int ans= helper(nums,amount,dp);
+        if(ans>=100000009)return -1;
+        else return ans;
     }
 };
