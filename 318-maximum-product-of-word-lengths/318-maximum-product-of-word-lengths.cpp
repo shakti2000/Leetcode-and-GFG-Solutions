@@ -8,13 +8,15 @@ public:
         for(auto &it:words){
             sort(it.begin(),it.end());
         }
-        set<int>ans;
+       // set<int>ans;
         sort(words.begin(),words.end(),shakti);
         for(int i=0;i<words.size();i++){
             for(auto it:words[i])st[i].insert(it);
         }
+        int ans=0;
         for(int i=0;i<words.size();i++){
             for(int j=i+1;j<words.size();j++){
+                if(words[i].length()*words[j].length()<=ans)continue;
                 int flag=0;
          //       int ta=0;
                 for(auto it:words[i]){
@@ -23,12 +25,15 @@ public:
                         break;
                     }
                 }
-                if(flag!=1)ans.insert( words[i].length()*words[j].length());
+                if(flag!=1){
+                    if(ans<words[i].length()*words[j].length()){
+                        ans=words[i].length()*words[j].length();
+                    }
+                }
                 else flag=0;
                 
             }
         }
-        if(ans.size()==0) return 0;
-        else return *(ans.rbegin());
+        return ans;
     }
 };
