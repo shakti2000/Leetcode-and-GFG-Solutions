@@ -18,7 +18,6 @@ public:
             for(int j=i+1;j<words.size();j++){
                 if(words[i].length()*words[j].length()<=ans)continue;
                 int flag=0;
-         //       int ta=0;
                 for(auto it:words[i]){
                     if(st[j].find(it)!=st[j].end()){
                         flag=1;
@@ -29,9 +28,7 @@ public:
                     if(ans<words[i].length()*words[j].length()){
                         ans=words[i].length()*words[j].length();
                     }
-                }
-                else flag=0;
-                
+                }                
             }
         }
         return ans;
