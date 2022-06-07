@@ -1,24 +1,42 @@
 class Solution {
 public:
-    bool canCross(vector<int>& stones) {
-        int n=stones.size();
-        if(stones[1]!=1) return false;
-        int dp[2002][2002];
-        memset(dp,-1,sizeof dp);
-        return solve(1,1,n-1,stones,dp);
-    }
-    bool solve(int i, int k, int n, vector<int>& stones, int dp[2002][2002]) {
-        if(i==n) return true;
-        if(dp[i][k]!=-1) return dp[i][k];
-        bool jumpOne=false,jumpTwo=false,jumpThree=false;
-        auto x=find(stones.begin()+i,stones.end(),stones[i]+k);
-        if(x!=stones.end()) jumpOne = true & solve(i+(x-(stones.begin()+i)),k,n,stones,dp);
-        x=find(stones.begin()+i,stones.end(),stones[i]+k+1);
-        if(x!=stones.end()) jumpTwo = true & solve(i+(x-(stones.begin()+i)),k+1,n,stones,dp);
-        if(k-1>0) {
-            x=find(stones.begin()+i,stones.end(),stones[i]+k-1);
-            if(x!=stones.end()) jumpThree = true & solve(i+(x-(stones.begin()+i)),k-1,n,stones,dp);
+    int helper(map<int,int>&mp,int target,int lj,int total, vector<vector<int>>&dp){
+        if(total==target)return 1;
+        if(total>target||total<0||lj==0)return 0;
+        int i=mp[total];
+        //cout<<lj<<","<<total<<endl;
+      if(dp[i][lj]!=-1)return dp[i][lj];
+        int ans=0;
+        for(int j=-1;j<=1;j++){
+            if(mp.find(total+lj+j)!=mp.end()){
+                ans=max(ans,helper(mp,target,lj+j,total+lj+j,dp));
+                if(ans==1)return dp[i][lj]=1;
+            }
         }
-        return dp[i][k] = jumpOne | jumpTwo | jumpThree;
+        return dp[i][lj]=ans;
     }
+    bool canCross(vector<int>& stones) {
+        if(stones.size()==2){
+            if(stones[0]==0&&stones[1]==1)return true;
+            else return false;
+        }
+        if(stones[1]!=1||stones[0]!=0)return false;
+        vector<vector<int>>dp(stones.size()+1,vector<int>(stones.size()+1,-1));
+        map<int,int>mp;
+        for(int i=0;i<stones.size();i++){
+           mp[stones[i]]=i;
+        }
+        int target=*(stones.rbegin());
+        int ans=0;
+        int lj=1;
+        int total=1;
+        for(int i=-1;i<=1;i++){
+            if(mp[total+lj+i]!=0){
+                ans=max(ans,helper(mp,target,lj+i,total+lj+i,dp));
+                if(ans==1)return true;
+            }
+        }
+    return false;
+    }
+    
 };
