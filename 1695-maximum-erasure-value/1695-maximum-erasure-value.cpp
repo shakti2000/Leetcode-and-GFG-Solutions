@@ -3,7 +3,7 @@ public:
     int maximumUniqueSubarray(vector<int>& nums) {
         int sws=0;
         int ans=0,j=0;
-        set<int>st;
+        unordered_set<int>st;
         for(int i=0;i<nums.size();i++){
             sws+=nums[i];
             if(st.find(nums[i])!=st.end()){
