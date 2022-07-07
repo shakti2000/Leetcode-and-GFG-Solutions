@@ -18,6 +18,7 @@ public:
         }
     }
     bool isInterleave(string s1, string s2, string s3) {
+         if(s1.length()+s2.length()!=s3.length())return false;
         vector<vector<int>>dp(s1.size()+1,(vector<int>(s2.size()+1,-1)));
         return rec(s1,s2,s3,0,0,0,dp);
     }
