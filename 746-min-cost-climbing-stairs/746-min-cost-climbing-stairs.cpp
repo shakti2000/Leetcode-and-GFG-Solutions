@@ -1,18 +1,19 @@
 class Solution {
 public:
-    long long helper(vector<int>& cost,vector<int>& dp,int i){
-        if(i>=cost.size())return 0;
-        if(dp[i]!=-1)return dp[i];
-        long long ans=INT_MAX;
-        ans=min(ans,cost[i]+helper(cost,dp,i+1));
-        ans=min(ans,cost[i]+helper(cost,dp,i+2));
-        return dp[i]=ans;
+    int f(int i,vector<int>& cost,vector<int>& dp){
+        if(i>=cost.size()){
+            return 0;
+        }
+        if(dp[i]!=-1) return dp[i];
+        return dp[i] = cost[i] + min(f(i+1,cost,dp),f(i+2,cost,dp));
     }
     int minCostClimbingStairs(vector<int>& cost) {
-        vector<int>dp(cost.size(),-1);
-        long long ans=INT_MAX;
-            ans=min(ans,helper(cost,dp,0));
-        ans=min(ans,helper(cost,dp,1));
-        return ans;
+        vector<int> dp(cost.size()+1,-1);
+        dp[0] = 0;
+        dp[1] = cost[0];
+        for(int i=1; i<cost.size(); i++){
+            dp[i+1] = cost[i] + min(dp[i],dp[i-1]);
+        }
+        return min(dp[cost.size()-1],dp[cost.size()]);
     }
 };
