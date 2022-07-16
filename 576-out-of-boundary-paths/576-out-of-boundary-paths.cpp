@@ -6,6 +6,7 @@ public:
             //cout<<i<<","<<j<<","<<maxMove<<endl;
                                  return 1;}
         if(dp[i][j][maxMove]!=-1)return dp[i][j][maxMove];
+        if(maxMove==0)return dp[i][j][maxMove]=0;
         long long ans=0;
         ans+=helper(m,n,maxMove-1,i+1,j,dp);
         ans+=helper(m,n,maxMove-1,i-1,j,dp);
