@@ -9,10 +9,24 @@
  */
 class Solution {
 public:
+    bool contains(TreeNode*root,TreeNode*target){
+        if(root==NULL)return false;
+        if(root==target)return true;
+        return contains(root->left,target)||contains(root->right,target);
+    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root || root == p || root == q) return root;
-    TreeNode* left = lowestCommonAncestor(root->left, p, q);
-    TreeNode* right = lowestCommonAncestor(root->right, p, q);
-    return !left ? right : !right ? left : root;
-}
+        TreeNode*temp=root;        
+        while(1){
+            if(contains(temp->left,p)&&contains(temp->left,q)){
+                temp=temp->left;
+                continue;
+            }
+            if(contains(temp->right,p)&&contains(temp->right,q)){
+                temp=temp->right;
+                continue;
+            }
+            break;
+        }
+        return temp;
+    }
 };
