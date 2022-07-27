@@ -1,34 +1,25 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    void pretav(TreeNode* root,vector<int>&s){
-        if(root==NULL)return ;
-        s.push_back(root->val);
-        pretav(root->left,s);
-        pretav(root->right,s);
-    }
     void flatten(TreeNode* root) {
-        if(root==NULL)return ;
-        vector<int>s;
-        TreeNode*head=root;
-        pretav(root,s);
-        root->val=s[0];
-        root->left=NULL;
-        for(int i=1;i<s.size();i++){
-                TreeNode* n=new TreeNode(s[i]);
-            root->right=n;
-            root=root->right;
+        if( root )
+        {
+            /*Move the left node to the right node*/
+            TreeNode* temp = root->right;
+            root->right = root->left;
+            root->left = nullptr;
+            TreeNode* node = root;
+            
+            /*Move to the end of the prev left node which is the new right node*/
+            while( node->right )
+            {
+                node = node->right;
             }
-        }
-    //return head;}
+            
+            /*Append the right node to its end*/
+            node->right = temp;
+            flatten( root->right ); 
+        } 
+        return;
+               
+    }
 };
