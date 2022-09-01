@@ -18,7 +18,7 @@ public:
         }else{
             return 1+helper(root->left,root->val)+helper(root->right,root->val);
         }
-        return 0;
+        
     }
     int goodNodes(TreeNode* root) {
         return helper(root,root->val);
