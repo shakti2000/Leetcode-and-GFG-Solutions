@@ -21,8 +21,7 @@ public:
         return 0;
     }
     int goodNodes(TreeNode* root) {
-        int ans=0 ;
-        ans=helper(root,root->val);
-        return ans;
+        return helper(root,root->val);
+        
     }
 };
