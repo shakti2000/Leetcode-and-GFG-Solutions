@@ -18,10 +18,11 @@ public:
     
         int n=arr.size();
         if(n==1){
+         //   cout<<arr[0]<<",";
             return abs(24.0-arr[0])<=FLT_EPSILON;
         }
         for(int fn=0;fn<n;fn++){
-            for(int sn=0;sn<n;sn++){
+            for(int sn=fn;sn<n;sn++){
                 if(fn==sn)continue;
                 double a=arr[fn];
                 double b=arr[sn];
