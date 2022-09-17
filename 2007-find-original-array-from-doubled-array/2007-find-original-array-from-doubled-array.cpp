@@ -1,21 +1,31 @@
 class Solution {
 public:
-    vector<int> findOriginalArray(vector<int>& A) {
-        vector<int>ans;
-        if(A.size()%2!=0)return ans;
-        if (A.size() % 2) return {};
-        unordered_map<int, int> c;
-        for (int a : A) c[a]++;
-        vector<int> keys;
-        for (auto it : c)
-            keys.push_back(it.first);
-        sort(keys.begin(), keys.end(), [](int i, int j) {return abs(i) < abs(j);});
-        vector<int> res;
-        for (int x : keys) {
-            if (c[x] > c[2 * x]) return {};
-            for (int i = 0; i < c[x]; ++i, c[2 * x]--)
-                res.push_back(x);
+    bool helper(vector<int>& ans,vector<int>& changed){
+        int i=0;
+        int j=changed.size()/2;
+     //   cout<<i<<","<<j;
+       unordered_map<int,int>mp;
+        unordered_map<int,int>required;
+        
+        for(auto it:changed){
+            if(required[it]!=0){
+                required[it]--;
+            }else{
+                required[it*2]++;
+                ans.push_back(it);
+            }
         }
-        return res;
+        for(auto it:required){
+            if(it.second!=0)return false;
+        }
+        return true;
+    }
+    vector<int> findOriginalArray(vector<int>& changed) {
+        vector<int>ans;
+        if(changed.size()%2!=0)return ans;
+        sort(changed.begin(),changed.end());
+        vector<int>temp;
+        if(helper(ans,changed)==true)return ans;
+        else return temp;
     }
 };
